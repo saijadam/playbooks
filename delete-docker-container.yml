@@ -1,0 +1,9 @@
+---
+- hosts: ws
+  become: true
+  become_user: root
+  tasks:
+  - name: Stop the Container
+    command: docker stop eduprojcontainer
+  - name: Deleted the docker container
+    command: docker rm eduprojcontainer
