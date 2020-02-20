@@ -1,0 +1,15 @@
+---
+- hosts: ws
+  become: true
+  become_user: root
+  tasks:
+  - name: Get Dockerfile from Git
+    git:
+     repo: 'https://github.com/saijadam/dockerfiles.git'
+     dest: /root/edurekadocker
+  - name: Go to the dest folder
+    command: chdir=/root/edurekadocker/ ls
+  - name: build the docker image
+    command: docker build -t saijadam/website:edurekaproj /root/edurekadocker/
+  - name: Create a container
+    command: docker run -itd -p 9999:8080 saijadam/website:edurekaproj
